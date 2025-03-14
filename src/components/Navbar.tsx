@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, Search, ShoppingBag } from 'lucide-react';
 
 const Navbar = () => {
@@ -28,27 +29,48 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="relative z-10">
+        <Link to="/" className="relative z-10">
           <div className={`transition-all duration-500 ${isScrolled ? 'scale-80' : ''}`}>
             <span className="font-playfair text-2xl font-bold tracking-wider">
               MAR<sup className={`text-sm ${isScrolled ? 'text-mar-gold' : 'text-red-600'}`}>2</sup>LEX
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`}
-              className={`animated-link text-sm font-medium uppercase tracking-widest ${
-                isScrolled ? 'text-white' : 'text-mar-charcoal'
-              }`}
-            >
-              {item}
-            </a>
-          ))}
+          <Link 
+            to="/" 
+            className={`animated-link text-sm font-medium uppercase tracking-widest ${
+              isScrolled ? 'text-white' : 'text-mar-charcoal'
+            }`}
+          >
+            Home
+          </Link>
+          <Link 
+            to="/shop" 
+            className={`animated-link text-sm font-medium uppercase tracking-widest ${
+              isScrolled ? 'text-white' : 'text-mar-charcoal'
+            }`}
+          >
+            Shop
+          </Link>
+          <a 
+            href="#about" 
+            className={`animated-link text-sm font-medium uppercase tracking-widest ${
+              isScrolled ? 'text-white' : 'text-mar-charcoal'
+            }`}
+          >
+            About
+          </a>
+          <a 
+            href="#contact" 
+            className={`animated-link text-sm font-medium uppercase tracking-widest ${
+              isScrolled ? 'text-white' : 'text-mar-charcoal'
+            }`}
+          >
+            Contact
+          </a>
         </nav>
 
         {/* Icons */}
@@ -88,16 +110,34 @@ const Navbar = () => {
             isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
         >
-          {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`}
-              className="text-white text-2xl font-playfair hover:text-mar-gold transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item}
-            </a>
-          ))}
+          <Link 
+            to="/" 
+            className="text-white text-2xl font-playfair hover:text-mar-gold transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Home
+          </Link>
+          <Link 
+            to="/shop" 
+            className="text-white text-2xl font-playfair hover:text-mar-gold transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Shop
+          </Link>
+          <a 
+            href="#about" 
+            className="text-white text-2xl font-playfair hover:text-mar-gold transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            About
+          </a>
+          <a 
+            href="#contact" 
+            className="text-white text-2xl font-playfair hover:text-mar-gold transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Contact
+          </a>
           <div className="flex items-center space-x-6 mt-8">
             <button className="text-white hover:text-mar-gold transition-colors">
               <Search size={24} />
