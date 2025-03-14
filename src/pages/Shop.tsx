@@ -11,23 +11,27 @@ const Shop = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   useEffect(() => {
-    // Get all elements that should be animated on scroll
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    // Improved animation approach
+    const handleAnimations = () => {
+      const animatedElements = document.querySelectorAll('.animate-on-scroll:not(.animated)');
+      
+      animatedElements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top <= window.innerHeight * 0.85;
+        
+        if (isVisible) {
+          element.classList.add('animated');
+        }
+      });
+    };
     
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach((el) => observer.observe(el));
+    // Run initially and on scroll
+    handleAnimations();
+    window.addEventListener('scroll', handleAnimations);
     
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('scroll', handleAnimations);
+    };
   }, []);
 
   return (
@@ -36,7 +40,7 @@ const Shop = () => {
       <main className="pt-24 pb-16 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
           {/* Page Header */}
-          <div className="text-center mb-12 animate-on-scroll">
+          <div className="text-center mb-12 animate-on-scroll opacity-0 transition-opacity duration-700">
             <span className="text-mar-burgundy uppercase tracking-widest text-sm font-medium">
               Curated Selection
             </span>
@@ -68,15 +72,15 @@ const Shop = () => {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Filters - Desktop sidebar / Mobile collapsible */}
             <div 
-              className={`animate-on-scroll md:w-64 md:block transition-all ${
-                isFiltersOpen ? 'max-h-[1000px] opacity-100 mb-6' : 'max-h-0 opacity-0 overflow-hidden'
-              } md:max-h-none md:opacity-100`}
+              className={`animate-on-scroll opacity-0 transition-opacity duration-700 delay-200 md:w-64 md:block transition-all ${
+                isFiltersOpen ? 'max-h-[1000px] opacity-100 mb-6' : 'max-h-0 md:opacity-100 overflow-hidden'
+              } md:max-h-none`}
             >
               <ProductFilters />
             </div>
 
             {/* Products Grid */}
-            <div className="animate-on-scroll flex-1">
+            <div className="animate-on-scroll opacity-0 transition-opacity duration-700 delay-400 flex-1">
               <ProductGrid />
             </div>
           </div>
