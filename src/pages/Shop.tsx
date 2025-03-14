@@ -11,7 +11,7 @@ const Shop = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   useEffect(() => {
-    // Improved animation approach
+    // Simple animation approach
     const handleAnimations = () => {
       const animatedElements = document.querySelectorAll('.animate-on-scroll:not(.animated)');
       
@@ -40,7 +40,7 @@ const Shop = () => {
       <main className="pt-24 pb-16 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
           {/* Page Header */}
-          <div className="text-center mb-12 animate-on-scroll opacity-0 transition-opacity duration-700">
+          <div className="text-center mb-12 animate-on-scroll">
             <span className="text-mar-burgundy uppercase tracking-widest text-sm font-medium">
               Curated Selection
             </span>
@@ -72,15 +72,15 @@ const Shop = () => {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Filters - Desktop sidebar / Mobile collapsible */}
             <div 
-              className={`animate-on-scroll opacity-0 transition-opacity duration-700 delay-200 md:w-64 md:block transition-all ${
-                isFiltersOpen ? 'max-h-[1000px] opacity-100 mb-6' : 'max-h-0 md:opacity-100 overflow-hidden'
+              className={`animate-on-scroll md:w-64 md:block transition-all ${
+                isFiltersOpen ? 'max-h-[1000px] opacity-100 mb-6' : 'max-h-0 overflow-hidden'
               } md:max-h-none`}
             >
               <ProductFilters />
             </div>
 
             {/* Products Grid */}
-            <div className="animate-on-scroll opacity-0 transition-opacity duration-700 delay-400 flex-1">
+            <div className="animate-on-scroll flex-1">
               <ProductGrid />
             </div>
           </div>
