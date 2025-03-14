@@ -1,12 +1,43 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import FeaturedCollection from '../components/FeaturedCollection';
+import About from '../components/About';
+import Contact from '../components/Contact';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
 
 const Index = () => {
+  useEffect(() => {
+    // Get all elements that should be animated on scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach((el) => observer.observe(el));
+    
+    return () => observer.disconnect();
+  }, []);
+  
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-mar-cream">
+      <Navbar />
+      <Hero />
+      <FeaturedCollection />
+      <About />
+      <Contact />
+      <Newsletter />
+      <Footer />
     </div>
   );
 };
